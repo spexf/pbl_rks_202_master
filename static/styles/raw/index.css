@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Poppins";
+    src: url(../../fonts/Poppins/Poppins-Medium.ttf);
+}
+
+
+@layer base {
+    
+    *{
+        font-family: "Poppins", sans-serif;
+        @apply transition-all duration-300;
+    }
+    body {
+        @apply bg-[#FFDAE1] flex w-full h-full;
+    }
+
+    hr {
+        @apply text-[#B7B2B2] text-[3px] w-full h-3
+    }
+}
+
+@layer components {
+    .sidebar {
+        @apply w-[350px] py-10 px-8 h-screen bg-[#FBA1B7]
+    }
+
+    .sidebar-header {
+        @apply flex justify-around items-center;
+    }
+
+    .navigation {
+        @apply flex flex-col justify-around w-full h-[30%] mt-[20px]
+    }
+
+    .navigation-items {
+        @apply flex justify-start text-white px-8 items-center w-full h-[50px] text-[20px] font-medium drop-shadow-sm rounded-[15px] hover:text-slate-700 hover:bg-[#ffd8a1] cursor-pointer;
+    }
+    
+    .navigation-items.active {
+        @apply bg-[#ffdaa6] text-slate-700;
+    }
+
+    .content {
+        @apply flex flex-col py-10 px-8 w-full h-full
+    }
+
+    .content-header {
+        @apply w-[70%] h-fit flex justify-around items-center
+    }
+
+    .ip-display {
+        @apply bg-[#FFDBAA] w-[250px] h-[68px]  text-[20px] font-medium px-8 rounded-[15px] drop-shadow-md
+    }
+
+    .ip-display::placeholder {
+        @apply italic text-black/50
+    }
+
+    .attack-button {
+        letter-spacing: 2px;
+        @apply bg-[#D81751] overflow-y-visible cursor-pointer active:bg-[#ff457d] hover:bg-[#df4b78] w-[200px] text-white italic font-medium text-[20px] flex items-center justify-around rounded-[15px] h-[70px];
+    }
+
+    .text {
+        background: url('../../images/pink.png') center left no-repeat;
+        @apply w-full h-full flex items-center justify-around;
+    }
+
+    .list-container {
+        @apply w-[95%] h-[540px] bg-[#fdbdc8] mt-[20px] px-8 py-8 rounded-[10px] drop-shadow-md flex flex-col overflow-y-scroll; 
+    }
+
+    .list-items {
+        @apply w-[100%] h-[70px] drop-shadow-md bg-rose-500/20 flex justify-between px-8 items-center mb-8 rounded-md;
+    }
+
+    .check {
+        @apply w-[25px] h-[25px] rounded-[150px];
+    }
+
+    .left {
+        @apply flex w-[40%] items-center justify-around;
+    }
+
+    .status.online {
+        @apply flex justify-around items-center bg-[#63FFAB] w-[125px] drop-shadow-lg rounded-[15px] h-[40px];
+    }
+    .status.offline {
+        @apply flex justify-around items-center text-white bg-[#ff288c] w-[125px] drop-shadow-lg rounded-[15px] h-[40px];
+    }
+
+    .icon {
+        @apply w-[100px] h-[100px] drop-shadow-lg;
+    }
+    
+
+}

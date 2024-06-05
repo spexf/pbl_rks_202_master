@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    *{
+        @apply transition-all duration-300;
+    }
+    body {
+        @apply bg-[#FFDAE1] flex justify-center items-center w-full h-full;
+    }
+
+    
+}
+
+@layer components {
+    .login-container {
+        @apply bottom-[20%] absolute items-center bg-[#FBA1B7] w-[973px] h-[534px] flex justify-around rounded-[15px] shadow-md px-8 py-8;
+    }
+
+    .login-form {
+        @apply w-[50%] h-[360px] flex-col items-center justify-around;
+    }
+
+    .form-title {
+        @apply text-white font-medium text-[23px] drop-shadow-lg mb-[15px];
+    }
+
+    .form-body {
+        @apply flex flex-col justify-around items-center w-[417px] h-[200px];
+    }
+
+    .form-input {
+        @apply text-[20px] bg-[#FFDBAA] font-medium w-full h-[70px] px-5 rounded-[15px] drop-shadow-lg;
+    }
+
+    .form-input::placeholder {
+        @apply italic;
+    }
+
+    .submit-button {
+        @apply text-[20px] mt-[15px] drop-shadow-lg font-medium w-[155px] h-[60px] bg-[#EB69A7] active:bg-[#FF53A6] hover:bg-[#FE87A4] rounded-[15px] text-white flex items-center justify-around cursor-pointer;
+    }
+
+    .login-picture {
+        @apply w-fit h-fit drop-shadow-md rounded-[15px];
+    }
+}

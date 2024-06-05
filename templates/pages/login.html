@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ url_for('static',filename='styles/compiled/login_dist.css') }}"
+		/>
+		<title>Login Dulu Puh 🙏</title>
+	</head>
+	<body>
+		<div class="login-container">
+			<div class="login-form">
+				<div class="form-title">Login Dulu Dong PUH 🙏</div>
+				<div class="form-body">
+					<input
+						class="form-input"
+						type="text"
+						name="username"
+						id="username"
+						placeholder="Username"
+					/>
+					<input
+						class="form-input"
+						type="password"
+						name="password"
+						id="password"
+						placeholder="Password"
+					/>
+				</div>
+				<div class="form-footer">
+					<div
+						class="submit-button"
+						id="signIn"
+					>
+						Login
+					</div>
+				</div>
+			</div>
+			<img
+				src="{{ url_for('static',filename='images/aaa1.png') }}"
+				alt="ketua"
+				class="login-picture"
+			/>
+		</div>
+		<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static',filename='js/auth.js') }}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	</body>
+</html>
