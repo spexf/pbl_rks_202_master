@@ -207,7 +207,7 @@ def attackSyn():
     for i in data:
         jsonres = {'identifier': i.unique_identifier, "ip": i.ip_address, "port": i.port}
         res.append(jsonres)
-    result = syn.synflood(res, request.form['t_ip'], request.form['t_port'], request.form['t_packet'],request.form['t_thread'])
+    result = syn.synflood(res, request.form['t_ip'], request.form['t_port'], request.form['t_duration'],request.form['t_thread'])
     # print(res)
     print(result)
     return jsonify(data=result), 200
@@ -220,7 +220,7 @@ def attackLor():
     for i in data:
         jsonres = {'identifier': i.unique_identifier, "ip": i.ip_address, "port": i.port}
         res.append(jsonres)
-    result = lor.slowloris(res, request.form['t_ip'], request.form['t_port'],request.form['t_socket'])
+    result = lor.slowloris(res, request.form['t_ip'], request.form['t_port'],request.form['t_socket'], request.form['t_duration'])
     # print(res)
     print(result)
     return jsonify(data=result), 200

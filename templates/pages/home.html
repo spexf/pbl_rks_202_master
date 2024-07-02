@@ -39,8 +39,8 @@ content%}
 			type="text"
 			class="ip-display"
 			style="font-size: medium"
-			id="packet"
-			placeholder="Packet Count"
+			id="duration"
+			placeholder="Running duration"
 		/>
 		<div
 			class="attack-button"
@@ -166,7 +166,7 @@ content%}
 				data: {
 					t_ip: ip,
 					t_port: port,
-					t_packet: $("#packet").val(),
+					t_duration: $("#duration").val(),
 					t_thread: $("#thread").val(),
 				},
 				success: (res) => {
@@ -210,6 +210,7 @@ content%}
 				data: {
 					t_ip: ip,
 					t_port: port,
+					t_duration: $("#duration").val(),
 					t_socket: $("#socket").val(),
 				},
 				success: (res) => {
@@ -253,12 +254,10 @@ content%}
 		$("#mode").on("change", () => {
 			if ($("#mode").val() == "syn") {
 				$("#thread").removeClass("hidden");
-				$("#packet").removeClass("hidden");
 				$("#socket").addClass("hidden");
 			} else if ($("#mode").val() == "lor") {
 				$("#thread").addClass("hidden");
 				$("#socket").removeClass("hidden");
-				$("#packet").addClass("hidden");
 			}
 		});
 	});
