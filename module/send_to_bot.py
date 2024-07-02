@@ -29,7 +29,7 @@ class Executor:
                 instance.sendline(bytes(port, encoding='utf-8'))
                 instance.sendline(bytes(thread, encoding='utf-8'))
                 instance.sendline(bytes(duration, encoding='utf-8'))
-                instance.close()
+                # instance.close()
             
             except Exception as e:
                 print(e)
@@ -51,7 +51,7 @@ class Executor:
                 instance.sendline(bytes(sockets, encoding='utf-8'))
                 instance.sendline(bytes(duration, encoding='utf-8'))
 
-                instance.close()
+                # instance.close()
             
             except Exception as e:
                 print(e)
