@@ -11,12 +11,17 @@
 			rel="stylesheet"
 			href="{{ url_for('static',filename='styles/compiled/index_dist.css') }}"
 		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+		/>
 	</head>
 	<body>
 		<div class="sidebar">
 			<div class="sidebar-header">
 				<img
-					src="https://cdn-icons-png.flaticon.com/512/4994/4994388.png"
+					src="{{ url_for('static', filename='images/ico.png') }}"
 					alt="icon"
 					class="icon"
 				/>
@@ -33,7 +38,10 @@
 		</div>
 		{% block content %}{% endblock content %}
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+		<script
+			type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/toastify-js"
+		></script>
 		<script src="{{ url_for('static', filename='js/logout.js') }}"></script>
 	</body>
 </html>

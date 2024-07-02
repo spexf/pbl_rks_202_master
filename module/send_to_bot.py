@@ -27,8 +27,8 @@ class Executor:
                 instance.sendline(b'1')
                 instance.sendline(bytes(ip, encoding='utf-8'))
                 instance.sendline(bytes(port, encoding='utf-8'))
-                instance.sendline(bytes(packet, encoding='utf-8'))
                 instance.sendline(bytes(thread, encoding='utf-8'))
+                instance.sendline(bytes(packet, encoding='utf-8'))
                 instance.close()
             
             except Exception as e:
