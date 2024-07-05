@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request,jsonify, make_response, redirect,url_for
 from datetime import datetime, timedelta
-from flask_jwt_extended import create_access_token,get_jwt_identity,jwt_required,JWTManager, set_refresh_cookies, set_access_cookies, create_refresh_token, unset_jwt_cookies
+from flask_jwt_extended import create_access_token,jwt_required,JWTManager, set_refresh_cookies, set_access_cookies, create_refresh_token, unset_jwt_cookies
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from werkzeug.security import generate_password_hash, check_password_hash

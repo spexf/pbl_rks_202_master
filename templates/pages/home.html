@@ -24,7 +24,7 @@ content%}
 			class="ip-display"
 			style="font-size: medium"
 			id="thread"
-			placeholder="Thread used"
+			placeholder="Thread"
 		/>
 		<input
 			style="width: 200px !important"
@@ -32,7 +32,7 @@ content%}
 			class="ip-display hidden"
 			style="font-size: medium"
 			id="socket"
-			placeholder="Socket used"
+			placeholder="Socket"
 		/>
 		<input
 			style="width: 200px !important"
@@ -40,7 +40,7 @@ content%}
 			class="ip-display"
 			style="font-size: medium"
 			id="duration"
-			placeholder="Running duration"
+			placeholder="Duration"
 		/>
 		<div
 			class="attack-button"
@@ -65,9 +65,9 @@ content%}
 			statusRefresh(uid);
 		};
 		const statusRefresh = (uid) => {
-			$(`#state_${uid}`).removeClass("online");
+			$(`#state_${uid}_`).removeClass("online");
 			$(`#state_${uid}`).text("refreshing . .");
-			$(`#state_${uid}`).addClass("offline");
+			$(`#state_${uid}_`).addClass("offline");
 			$.ajax({
 				type: "POST",
 				url: "/api/botnet/ping",
@@ -78,10 +78,10 @@ content%}
 					console.log(res);
 					$(`#state_${uid}`).text(res.state);
 					if (res.state == "online") {
-						$(`#state_${uid}`).addClass("online");
-						$(`#state_${uid}`).removeClass("offline");
+						$(`#state_${uid}_`).addClass("online");
+						$(`#state_${uid}_`).removeClass("offline");
 					} else {
-						$(`#state_${uid}`).addClass("offline");
+						$(`#state_${uid}_`).addClass("offline");
 					}
 				},
 				error: (xhr, status, error) => {
@@ -109,8 +109,8 @@ content%}
 						console.log(res);
 						$(`#state_${data}`).text(res.state);
 						if (res.state == "online") {
-							$(`#state_${data}`).addClass("online");
-							$(`#state_${data}`).removeClass("offline");
+							$(`#state_${data}_`).addClass("online");
+							$(`#state_${data}_`).removeClass("offline");
 						}
 					},
 					error: (xhr, status, error) => {
@@ -126,8 +126,10 @@ content%}
 				res.map((bot) => {
 					$("#bot-container").append(
 						`
-					<div class="list-items">
+					<div class="list-items offline" id="state_${bot.identifier}_">
 				<div class="left">
+								<div class="button-refresh refresh-button cursor-pointer" id="${bot.identifier}">Refresh</div>
+
 					<input
 						type="hidden"
 						name="selected"
@@ -136,9 +138,8 @@ content%}
 					/>
 					<input name="dta" value="${bot.identifier}" type="hidden"/>
 					<div class="machine-name">${bot.identifier}</div>
+					</div>
 					<div class="bot-ip">${bot.ip}</div>
-				</div>
-				<div class="button-refresh cursor-pointer" id="${bot.identifier}">Refresh</div>
 				<div class="status offline" id="state_${bot.identifier}"></div>
 			</div>
 					`
